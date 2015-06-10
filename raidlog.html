@@ -1,0 +1,85 @@
+<head>
+   <title>Raid Logs</title>
+ </head>
+ <body>
+ <div class="navbar navbar-inverse navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="brand" href="#">Raid Logs</a>
+           <div class="nav-collapse collapse">
+             <ul class="nav">
+               <li class="active"><a href="#">Home</a></li>
+             </ul>
+           </div><!--/.nav-collapse -->
+         </div>
+       </div>
+     </div>
+     <div class="container">
+         {{> encounters}}
+    </div>
+    {{ > encounterDetails }}
+</body>
+<template name="test">
+  <table class="table">
+      <tr><td>Name</td><td>Job</td><td>EncDPS</td><td>EncHPS</td><td>Deaths</td></tr>
+      {{#each allies}}
+        <tr><td>{{Name}}</td><td>{{Job}}</td><td>{{formatDPS EncDPS}}</td><td>{{EncHPS}}</td><td>{{Deaths}}</td></tr>
+      {{/each}}
+    </table>
+</template>
+<template name="encounters">
+  {{ > reactiveTable collection=encounters settings=encounterSettings }}
+</template>
+<template name="nameTemp">
+  <a href="#" class="_name" data-id="{{_id}}">{{name}}</a>
+</template>
+<template name="playNameTemp">
+  <a href="#" class="_name" data-id="{{Name}}">{{Name}}</a>
+</template>
+<template name="damageTypeTemp">
+  <a href="#" class="_type" data-id="{{name}}"> {{name}}</a>
+</template>
+<template name="raiddpsTemp">
+  {{formatDPS raiddps}}
+</template>
+<template name="EncDPSTemp">
+  {{formatDPS EncDPS}}
+</template>
+<template name="EncHPSTemp">
+  {{formatDPS EncHPS}}
+</template>
+<template name="encounterDetails" >
+   <div id="_encounter">
+   {{#each encounters}}
+   <div class="modal-header">
+    <h3>{{name}} - [{{duration}}] {{formatDPS raiddps}} dps</h3>
+   </div>
+   <div class="modal-body">
+      {{ > reactiveTable collection=allies settings=allySettings }}
+  </div>
+  {{/each}}
+  <div id="_allyBreakdown">
+    <div class="modal-header">
+      <h3>{{damageType.name}}</h3>
+    </div>
+    <div class="modal-body">
+      {{ > reactiveTable collection=damageType.damageTypes settings=damageTypeSettings}}
+    </div>
+  </div>
+   <div id="_damageBreakdown">
+    <div class="modal-header">
+      <h3>{{breakDown.name}}</h3>
+    </div>
+    <div class="modal-body">
+      {{ > reactiveTable collection=breakDown.breakdown settings=breakDownSettings}}
+    </div>
+  </div>
+  <div id="theChart" ></div>
+</div>
+
+</template>

@@ -1,0 +1,7 @@
+/* CSS declarations go here */
+body {
+  padding-top: 60px;
+}
+.active {
+	background-color: #797979 !important;
+}
